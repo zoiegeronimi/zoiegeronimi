@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zoie Geronimi — Portfolio</title>
+  <meta name="description" content="Zoie Geronimi — Computer Science & African American Studies student at Columbia. Product-minded engineer, researcher, and founder." />
+  <meta property="og:title" content="Zoie Geronimi — Portfolio" />
+  <meta property="og:description" content="Product-minded engineer, researcher, and founder. Portfolio, projects, and resume." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --accent:#7c3aed; --muted:#94a3b8; --glass: rgba(255,255,255,0.04);
+      --max-width:1100px; --radius:14px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%; margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial; background:linear-gradient(180deg,#071026 0%, #071428 50%, #06101a 100%); color:#e6eef8; scroll-behavior:smooth}
+    .wrap{max-width:var(--max-width); margin:0 auto; padding:36px}
+
+    /* Nav */
+    header{position:sticky; top:12px; z-index:60}
+    nav{display:flex; justify-content:space-between; align-items:center; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:10px 16px; border-radius:999px; backdrop-filter:blur(6px); box-shadow:0 6px 20px rgba(2,6,23,0.6)}
+    .brand{display:flex; gap:12px; align-items:center}
+    .logo{width:46px; height:46px; display:grid; place-items:center; border-radius:10px; background:linear-gradient(135deg,var(--accent),#4f46e5); font-weight:700}
+    .brand h1{font-size:16px; margin:0}
+    .navlinks{display:flex; gap:14px; align-items:center}
+    .navlinks a{color:var(--muted); text-decoration:none; font-weight:600; padding:8px 12px; border-radius:10px}
+    .navlinks a:hover, .navlinks a.active{color:#fff; background:rgba(255,255,255,0.03)}
+
+    /* Hero */
+    .hero{display:grid; grid-template-columns:1fr 420px; gap:28px; align-items:center; padding:48px 0}
+    .hero-left h2{font-size:42px; line-height:1.02; margin:0}
+    .hero-left p{color:var(--muted); margin-top:12px; max-width:640px}
+    .cta{margin-top:22px; display:flex; gap:12px}
+    .btn{padding:12px 18px; border-radius:12px; font-weight:700; border:none; cursor:pointer}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),#4f46e5); color:white}
+    .btn-ghost{background:transparent; border:1px solid rgba(255,255,255,0.06); color:var(--muted)}
+
+    /* Card */
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:16px; padding:18px; box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+
+    /* Profile */
+    .profile{display:flex; flex-direction:column; gap:12px}
+    .avatar{width:100%; border-radius:12px; aspect-ratio:4/3; background:linear-gradient(135deg,#fde68a, #fca5a5); display:grid; place-items:center; font-size:28px; color:#0b1220}
+    .meta{display:flex; gap:10px; flex-wrap:wrap}
+    .meta span{background:var(--glass); padding:6px 10px; border-radius:999px; color:var(--muted); font-size:13px}
+
+    /* Projects grid */
+    .projects{display:grid; grid-template-columns:repeat(2,1fr); gap:18px}
+    .project{padding:16px; border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); transition:transform .28s ease, box-shadow .28s ease; cursor:pointer}
+    .project:hover{transform:translateY(-8px) rotate(-0.3deg); box-shadow:0 24px 60px rgba(2,6,23,0.6)}
+    .project h3{margin:0 0 6px 0}
+    .project p{color:var(--muted); margin:0}
+    .tags{margin-top:12px; display:flex; gap:8px; flex-wrap:wrap}
+    .tag{background:rgba(255,255,255,0.03); padding:6px 8px; border-radius:8px; color:var(--muted); font-size:13px}
+
+    /* Resume */
+    .timeline{display:flex; flex-direction:column; gap:14px}
+    .entry{display:flex; gap:14px}
+    .entry .dot{width:12px; height:12px; border-radius:50%; background:var(--accent); margin-top:6px}
+    .entry .content h4{margin:0; font-size:16px}
+    .entry .content p{margin:6px 0 0 0; color:var(--muted); font-size:14px}
+
+    /* Contact */
+    .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+    label{display:block; font-size:13px; color:var(--muted); margin-bottom:6px}
+    input, textarea{width:100%; padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:inherit}
+    textarea{min-height:140px}
+
+    footer{padding:36px 0; color:var(--muted); font-size:14px}
+
+    /* Responsive */
+    @media (max-width:980px){.hero{grid-template-columns:1fr;}.projects{grid-template-columns:1fr}.contact-grid{grid-template-columns:1fr}.navlinks{display:none}.wrap{padding:18px}}
+
+    /* Subtle animated background shapes */
+    .bg-shapes{position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.12}
+    .shape{position:absolute; border-radius:40px; filter:blur(40px); transform:translateZ(0)}
+    .s1{width:380px; height:380px; left:-80px; top:-60px; background:linear-gradient(135deg, rgba(124,58,237,0.9), rgba(99,102,241,0.8))}
+    .s2{width:260px; height:260px; right:-40px; bottom:-40px; background:linear-gradient(135deg, rgba(16,185,129,0.9), rgba(34,211,238,0.8))}
+
+  </style>
+</head>
+<body>
+  <div class="bg-shapes">
+    <div class="shape s1"></div>
+    <div class="shape s2"></div>
+  </div>
+
+  <header class="wrap">
+    <nav class="card">
+      <div class="brand">
+        <div class="logo">ZG</div>
+        <div>
+          <h1 style="font-size:14px; margin:0">Zoie Geronimi</h1>
+          <div style="font-size:12px;color:var(--muted)">Computer Science • Research • Product</div>
+        </div>
+      </div>
+      <div class="navlinks" id="navlinks">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#resume">Resume</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="wrap" style="position:relative; z-index:2">
+
+    <section class="hero">
+      <div class="hero-left">
+        <h2 data-aos="fade-up">Hi — I'm <span style="background:linear-gradient(90deg,var(--accent),#4f46e5); -webkit-background-clip:text; color:transparent; font-weight:800">Zoie Geronimi</span>.<br><span style="font-weight:500">I build product-first technology for social impact.</span></h2>
+        <p data-aos="fade-up" data-aos-delay="80">Computer Science student at Columbia University with a focus in African American Studies. I design and ship user-focused systems — from research-driven apps to production-scale tooling. I like delightful interfaces, readable code, and projects that help communities.</p>
+        <div class="cta" data-aos="fade-up" data-aos-delay="160">
+          <a class="btn btn-primary" href="#projects">View Projects</a>
+          <a class="btn btn-ghost" href="#contact">Contact</a>
+        </div>
+        <div style="margin-top:18px; color:var(--muted)" data-aos="fade-up" data-aos-delay="220">Based in New York • Available for internships & research collaborations</div>
+      </div>
+
+      <aside class="card profile" data-aos="fade-left">
+        <div class="avatar">Zoie<br><small style="opacity:0.9">Columbia ’26</small></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:12px">
+          <div>
+            <div style="font-weight:700">Zoie Geronimi</div>
+            <div style="color:var(--muted); font-size:13px">Computer Science • African American Studies</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-weight:700">3.8</div>
+            <div style="color:var(--muted); font-size:13px">GPA</div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px" class="meta">
+          <span>Columbia University</span>
+          <span>Product Management</span>
+          <span>Research Fellow</span>
+        </div>
+
+        <div style="margin-top:12px">
+          <a href="#resume" class="btn btn-ghost" style="display:inline-block">View Résumé</a>
+        </div>
+      </aside>
+    </section>
+
+    <section id="projects" style="padding:18px 0">
+      <h3 data-aos="fade-up">Projects</h3>
+      <p style="color:var(--muted)" data-aos="fade-up" data-aos-delay="80">Selected work: product, research, and software projects with measurable impact.</p>
+      <div class="projects" style="margin-top:18px">
+        <div class="project" data-aos="zoom-in" onclick="openProject(0)">
+          <h3>Legal Ai(d)</h3>
+          <p>Co‑founder &amp; Tech Lead — App providing rights education and legal navigation to New Yorkers. $5k+ funding; 100+ downloads.</p>
+          <div class="tags"><div class="tag">React</div><div class="tag">Product</div><div class="tag">User Research</div></div>
+        </div>
+
+        <div class="project" data-aos="zoom-in" data-aos-delay="60" onclick="openProject(1)">
+          <h3>Phoenix</h3>
+          <p>Mental health resource app designed for Black young adults. Research-led, 100+ downloads.</p>
+          <div class="tags"><div class="tag">Swift</div><div class="tag">iOS</div><div class="tag">Design</div></div>
+        </div>
+
+        <div class="project" data-aos="zoom-in" data-aos-delay="120" onclick="openProject(2)">
+          <h3>Recidiviz — Supervision Tool</h3>
+          <p>Built a tool improving supervision downgrade outcomes in Iowa; impacted 1,000+ people.</p>
+          <div class="tags"><div class="tag">Node.js</div><div class="tag">Product</div><div class="tag">Impact</div></div>
+        </div>
+
+        <div class="project" data-aos="zoom-in" data-aos-delay="180" onclick="openProject(3)">
+          <h3>SAFE Lab — Grief Care App</h3>
+          <p>Designed a digital grief care app for Harlem residents; shaped by 50+ interviews; 200+ downloads.</p>
+          <div class="tags"><div class="tag">Research</div><div class="tag">UX</div><div class="tag">Community</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="resume" style="padding:28px 0">
+      <h3 data-aos="fade-up">Résumé</h3>
+      <div class="timeline" style="margin-top:18px">
+        <div class="entry" data-aos="fade-up">
+          <div class="dot"></div>
+          <div class="content card">
+            <h4>Recidiviz — Product Management Intern <span style="float:right; color:var(--muted); font-size:13px">May 2024 - Present</span></h4>
+            <p>Developed an automated email reminder system reaching 500+ parole officers and supervisors and increasing monthly active users by ~9%. Directed a cross-functional team to develop and launch a tool improving supervision downgrade outcomes in Iowa for 1,000+ people.</p>
+          </div>
+        </div>
+
+        <div class="entry" data-aos="fade-up" data-aos-delay="60">
+          <div class="dot"></div>
+          <div class="content card">
+            <h4>Liberty Mutual — Fullstack Software Engineer Intern <span style="float:right; color:var(--muted); font-size:13px">May 2023 - Aug 2024</span></h4>
+            <p>Used Node.js to automate workflows within the ClaimCenter platform. Designed user-centric interfaces with React, JavaScript, and TypeScript to improve adjuster experience.</p>
+          </div>
+        </div>
+
+        <div class="entry" data-aos="fade-up" data-aos-delay="120">
+          <div class="dot"></div>
+          <div class="content card">
+            <h4>Legal Ai(d) — Co-Founder & Tech Lead <span style="float:right; color:var(--muted); font-size:13px">Jan 2025 - Present</span></h4>
+            <p>Co-founded and built an app to empower and educate New York residents on their rights. Gained $5,000+ funding; 100+ downloads as of Aug 2025.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="margin-top:18px" data-aos="fade-up">
+        <a href="#contact" class="btn btn-primary">Contact for résumé / references</a>
+      </div>
+    </section>
+
+    <section id="contact" style="padding:28px 0">
+      <h3 data-aos="fade-up">Contact</h3>
+      <p style="color:var(--muted)" data-aos="fade-up" data-aos-delay="60">Reach out for internships, research collaborations, or project inquiries.</p>
+
+      <div class="contact-grid" style="margin-top:18px">
+        <div class="card" data-aos="fade-up">
+          <form action="https://formspree.io/f/your-form-id" method="POST">
+            <label for="name">Name</label>
+            <input id="name" name="name" placeholder="Your name" required>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@domain.com" required>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Short message" required></textarea>
+            <div style="margin-top:12px; display:flex; gap:8px">
+              <button class="btn btn-primary" type="submit">Send</button>
+              <a class="btn btn-ghost" href="mailto:zoie.geronimi@columbia.edu">Or email directly</a>
+            </div>
+          </form>
+        </div>
+
+        <div class="card" data-aos="fade-up" data-aos-delay="80">
+          <h4>Quick links</h4>
+          <p style="color:var(--muted)"><strong>Phone:</strong> (906) 396-8801<br><strong>Email:</strong> zoie.geronimi@columbia.edu</p>
+          <div style="margin-top:12px"><strong>Locations</strong><p style="color:var(--muted); margin:6px 0">New York, NY</p></div>
+          <div style="margin-top:12px"><strong>Social</strong>
+            <div style="display:flex; gap:8px; margin-top:8px">
+              <a href="https://www.linkedin.com/in/zoiegeronimi" style="color:var(--muted); text-decoration:none">LinkedIn</a>
+              <a href="#projects" style="color:var(--muted); text-decoration:none">GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="wrap">
+    <div class="card" style="display:flex; justify-content:space-between; align-items:center">
+      <div>© Zoie Geronimi — Designed & built with care</div>
+      <div style="color:var(--muted)">Built for clarity • Accessible • Responsive</div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init({duration:700, once:true, easing:'ease-out-cubic'});
+
+    // Nav active link on scroll
+    const sections = document.querySelectorAll('main section');
+    const navlinks = document.querySelectorAll('.navlinks a');
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        const id = e.target.id;
+        if(e.isIntersecting){
+          navlinks.forEach(a=>a.classList.toggle('active', a.getAttribute('href')===('#'+id)));
+        }
+      });
+    },{rootMargin:'-40% 0px -40% 0px'});
+    sections.forEach(s=>obs.observe(s));
+
+    // Simple tilt effect for project cards
+    document.querySelectorAll('.project').forEach(card=>{
+      card.addEventListener('mousemove', e=>{
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+        card.style.transform = `perspective(800px) rotateX(${(y-0.5)*6}deg) rotateY(${(x-0.5)*-6}deg) translateY(-6px)`;
+      });
+      card.addEventListener('mouseleave', ()=>{card.style.transform='translateY(0)'});
+    });
+
+    // Project click placeholder
+    function openProject(i){alert('Open project '+i+' — replace with actual project links or modal.');}
+  </script>
+</body>
+</html>
